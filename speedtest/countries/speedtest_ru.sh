@@ -86,6 +86,8 @@ speed() {
     speed_test '4483' 'RCom, Penza'
     speed_test '3310' 'RCom, AST'
 
+    speed_test '2660' 'DOM.RU, Perm'
+
     speed_test '6388' 'Megafon, KRD'
     # Краснодар
     speed_test '6389' 'Megafon, NVS'
