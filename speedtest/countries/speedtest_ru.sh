@@ -265,9 +265,9 @@ install_speedtest() {
 }
 
 print_intro() {
-    echo "----------- A Bench.sh Script By Teddysun | Russia Regions -----------"
+    echo "----------- A Bench.sh Script By Teddysun | Russian Regions ----------"
     echo " Version            : $(_green v2024-11-05)"
-    echo " More scripts       : $(_red "https://github.com/jomertix/server-scripts")"
+    echo " More scripts       : $(_green "https://github.com/jomertix/server-scripts")"
 }
 
 # Get System information
