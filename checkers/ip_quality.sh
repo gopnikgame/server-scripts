@@ -90,7 +90,7 @@ declare Media_Cookie=$(curl $CurlARG -s --retry 3 --max-time 10 "https://raw.git
 declare IATA_Database="https://raw.githubusercontent.com/xykt/IPQuality/main/ref/iata-icao.csv"
 shelp_lines=(
 "IP QUALITY CHECK SCRIPT"
-"Usage: bash <(curl -sL IP.Check.Place) [-4] [-6] [-f] [-h] [-i eth0] [-l cn|en|jp|es|de|fr|ru|pt] [-x http://usr:pwd@proxyurl:p]"
+"Usage: bash <(curl -sL https://raw.githubusercontent.com/jomertix/server-scripts/refs/heads/master/checkers/ip_quality.sh) [-4] [-6] [-f] [-h] [-i eth0] [-l cn|en|jp|es|de|fr|ru|pt] [-x http://usr:pwd@proxyurl:p]"
 "            -4                             Test IPv4"
 "            -6                             Test IPv6"
 "            -f                             Show full IP on reports"
@@ -124,7 +124,7 @@ sinfo[lmail]=24
 sinfo[ldnsbl]=28
 shead[title]="IP QUALITY CHECK REPORT: "
 shead[ver]="Version: $script_version"
-shead[bash]="bash <(curl -sL IP.Check.Place)"
+shead[bash]="bash <(curl -sL https://raw.githubusercontent.com/jomertix/server-scripts/refs/heads/master/checkers/ip_quality.sh)"
 shead[git]="https://github.com/xykt/IPQuality"
 shead[time]=$(date -u +"Report Time: %Y-%m-%d %H:%M:%S UTC")
 shead[ltitle]=25
@@ -241,7 +241,7 @@ sinfo[lmail]=19
 sinfo[ldnsbl]=21
 shead[title]="IP质量体检报告："
 shead[ver]="脚本版本：$script_version"
-shead[bash]="bash <(curl -sL IP.Check.Place)"
+shead[bash]="bash <(curl -sL https://raw.githubusercontent.com/jomertix/server-scripts/refs/heads/master/checkers/ip_quality.sh)"
 shead[git]="https://github.com/xykt/IPQuality"
 shead[time]=$(TZ="Asia/Shanghai" date +"报告时间：%Y-%m-%d %H:%M:%S CST")
 shead[ltitle]=16
