@@ -1,4 +1,7 @@
 #!/bin/bash
+# Author: xykt
+# Source of the script: https://ip.check.place
+
 script_version="v2024-11-09"
 ADLines=25
 check_bash(){
