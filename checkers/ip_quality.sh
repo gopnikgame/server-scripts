@@ -7,7 +7,7 @@ ADLines=25
 check_bash(){
 current_bash_version=$(bash --version | head -n 1 | awk -F ' ' '{for (i=1; i<=NF; i++) if ($i ~ /^[0-9]+\.[0-9]+\.[0-9]+/) {print $i; exit}}' | cut -d . -f 1)
 if [ "$current_bash_version" = "0" ]||[ "$current_bash_version" = "1" ]||[ "$current_bash_version" = "2" ]||[ "$current_bash_version" = "3" ];then
-echo "ERROR: Bash version is lower than 4.0!"
+echo "ERROR: Bash version is lower than 4.0!"    
 echo "Tips: Run the following script to automatically upgrade Bash."
 echo "bash <(curl -sL https://raw.githubusercontent.com/xykt/IPQuality/main/ref/upgrade_bash.sh)"
 exit 0
@@ -128,7 +128,7 @@ sinfo[ldnsbl]=28
 shead[title]="IP QUALITY CHECK REPORT: "
 shead[ver]="Version: $script_version"
 shead[bash]="bash <(curl -sL https://raw.githubusercontent.com/jomertix/server-scripts/refs/heads/master/checkers/ip_quality.sh)"
-shead[git]="https://github.com/xykt/IPQuality"
+shead[git]="https://github.com/jomertix/server-scripts"
 shead[time]=$(date -u +"Report Time: %Y-%m-%d %H:%M:%S UTC")
 shead[ltitle]=25
 shead[ptime]=$(printf '%7s' '')
@@ -245,7 +245,7 @@ sinfo[ldnsbl]=21
 shead[title]="IP质量体检报告："
 shead[ver]="脚本版本：$script_version"
 shead[bash]="bash <(curl -sL https://raw.githubusercontent.com/jomertix/server-scripts/refs/heads/master/checkers/ip_quality.sh)"
-shead[git]="https://github.com/xykt/IPQuality"
+shead[git]="https://github.com/jomertix/server-scripts"
 shead[time]=$(TZ="Asia/Shanghai" date +"报告时间：%Y-%m-%d %H:%M:%S CST")
 shead[ltitle]=16
 shead[ptime]=$(printf '%8s' '')
