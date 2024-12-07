@@ -1,4 +1,7 @@
 #!/bin/bash
+
+# Source: https://bench.openode.xyz/checker.sh
+
 shopt -s expand_aliases
 Font_Black="\033[30m"
 Font_Red="\033[1;31m"
