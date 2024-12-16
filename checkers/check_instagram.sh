@@ -291,7 +291,7 @@ function CheckV4() {
 	if [[ "$NetworkType" == "6" ]]; then
 		isv4=0
 	else
-		echo -e " ${Font_Yellow}** Результаты проаерки для IPv4${Font_Suffix} "
+		echo -e " ${Font_Yellow}** Результаты проверки для IPv4${Font_Suffix} "
 		check4=$(ping 1.1.1.1 -c 1 2>&1)
 		echo "--------------------------------"
 		echo -e " ${Font_Yellow}** Ваш хостинг-провайдер: ${local_isp4} (${local_ipv4_asterisk})${Font_Suffix} "
@@ -325,7 +325,7 @@ function CheckV6() {
 		if [[ "$check6_1" -ne "000" ]] || [[ "$check6_2" -ne "000" ]]; then
 			echo ""
 			echo ""
-			echo -e " ${Font_Yellow}** Результаты проаерки для IPv6${Font_Suffix} "
+			echo -e " ${Font_Yellow}** Результаты проверки для IPv6${Font_Suffix} "
 			echo "--------------------------------"
 			echo -e " ${Font_Yellow}** Ваш хостинг-провайдер: ${local_isp6} (${local_ipv6_asterisk})${Font_Suffix} "
 			isv6=1
