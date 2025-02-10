@@ -10,7 +10,7 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 # Проверка операционной системы
-if ! grep -q "Ubuntu\|Debian" /etc/os-release; then
+if ! grep -E -q "Ubuntu|Debian" /etc/os-release; then
     echo "Ошибка: Этот скрипт поддерживает только Ubuntu и Debian."
     exit 1
 fi
@@ -25,7 +25,7 @@ get_psabi_version() {
         if (level == 1 && $0 ~ /cx16/ && $0 ~ /lahf/ && $0 ~ /popcnt/ && $0 ~ /sse4_1/ && $0 ~ /sse4_2/ && $0 ~ /ssse3/) level = 2
         if (level == 2 && $0 ~ /avx/ && $0 ~ /avx2/ && $0 ~ /bmi1/ && $0 ~ /bmi2/ && $0 ~ /f16c/ && $0 ~ /fma/ && $0 ~ /abm/ && $0 ~ /movbe/ && $0 ~ /xsave/) level = 3
         if (level == 3 && $0 ~ /avx512f/ && $0 ~ /avx512bw/ && $0 ~ /avx512cd/ && $0 ~ /avx512dq/ && $0 ~ /avx512vl/) level = 4
-        if (level > 0) { print "x64v" level; exit level + 1 }
+        if (level > 0) { print "x64v" level; exit (level + 1) }
     }
     END {
         if (level == 0) {
@@ -37,10 +37,16 @@ get_psabi_version() {
 
 # Функция для установки ядра
 install_kernel() {
+    # Установка software-properties-common, если отсутствует
+    if ! command -v add-apt-repository &> /dev/null; then
+        apt update || { echo "Ошибка при обновлении списка пакетов."; exit 1; }
+        apt install -y software-properties-common || { echo "Ошибка при установке software-properties-common."; exit 1; }
+    fi
+
     # Определение PSABI версии
     PSABI_VERSION=$(get_psabi_version)
-    if [[ -z "$PSABI_VERSION" ]]; then
-        echo "Ошибка: Не удалось определить PSABI версию вашего процессора."
+    if [[ -z "$PSABI_VERSION" || ! "$PSABI_VERSION" =~ ^x64v[1-4]$ ]]; then
+        echo "Ошибка: Некорректная версия PSABI: $PSABI_VERSION"
         exit 1
     fi
 
@@ -71,10 +77,12 @@ install_kernel() {
     echo "Обновление списка пакетов..."
     apt update || { echo "Ошибка при обновлении списка пакетов."; exit 1; }
 
-    # Добавление PPA репозитория Xanmod
-    echo "Добавление PPA репозитория Xanmod..."
-    add-apt-repository -y ppa:xanmod/kernel || { echo "Ошибка при добавлении репозитория."; exit 1; }
-    apt update || { echo "Ошибка при обновлении списка пакетов после добавления репозитория."; exit 1; }
+    # Проверка наличия репозитория Xanmod
+    if ! grep -q "^deb .*/xanmod/kernel" /etc/apt/sources.list /etc/apt/sources.list.d/*; then
+        echo "Добавление PPA репозитория Xanmod..."
+        add-apt-repository -y ppa:xanmod/kernel || { echo "Ошибка при добавлении репозитория."; exit 1; }
+        apt update || { echo "Ошибка при обновлении списка пакетов после добавления репозитория."; exit 1; }
+    fi
 
     # Установка выбранного ядра
     echo "Установка ядра $KERNEL_PACKAGE..."
@@ -98,7 +106,7 @@ configure_bbr() {
 
     # Включение TCP BBR
     echo "Включение TCP BBR..."
-    cat <<EOF | sudo tee /etc/sysctl.d/99-bbr.conf > /dev/null
+    cat <<EOF > /etc/sysctl.d/99-bbr.conf
 net.core.default_qdisc=fq
 net.ipv4.tcp_congestion_control=bbr
 EOF
