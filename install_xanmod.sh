@@ -100,7 +100,6 @@ install_kernel() {
     # Сохранение состояния перед перезагрузкой
     echo "kernel_installed" > "$STATE_FILE"
 }
-
 # Функция для настройки TCP BBR
 configure_bbr() {
     echo "Начало настройки TCP BBR..." | tee -a "$LOG_FILE"
