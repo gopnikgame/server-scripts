@@ -20,9 +20,4 @@ Check Instagram availability
 bash <(curl -sL https://raw.githubusercontent.com/jomertix/server-scripts/refs/heads/master/checkers/check_instagram.sh)
 ```
 
-Установка ядра Xanmod и настройка BBR v3:
-```
-wget -qO- https://raw.githubusercontent.com/gopnikgame/server-scripts/master/install_xanmod.sh | sudo bash
-```
-
 
